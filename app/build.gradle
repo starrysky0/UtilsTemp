@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.novoda.bintray-release'
 }
 
 android {
@@ -42,4 +43,30 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+
+def siteUrl = 'https://github.com/starrysky0/UtilsTemp.git'   // 项目的主页
+
+publish {
+    userOrg = 'starrysky0'      //bintray注册的用户名
+    groupId = 'com.starry.sky'         //compile引用时的第1部分groupId
+    artifactId = 'utilstemp'     //compile引用时的第2部分项目名
+    publishVersion = "1.0.0"   //compile引用时的第3部分版本号
+    desc = '一个utilstemp方案'
+    website = siteUrl
 }
